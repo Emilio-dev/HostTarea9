@@ -262,83 +262,83 @@
       });
     }
 
-  function displayProductsCarrito(products) {
-  var productListContainer = document.getElementById('carritoList');
-  var total = 0;
+    function displayProductsCarrito(products) {
+    var productListContainer = document.getElementById('carritoList');
+    var total = 0;
 
-  // Limpiar el contenido existente
-  productListContainer.innerHTML = '';
+    // Limpiar el contenido existente
+    productListContainer.innerHTML = '';
 
-  // Generar las ventanas emergentes para cada artículo
-  products.forEach(function (product) {
-    var ventana = document.createElement('div');
-    ventana.classList.add('ventana');
+    // Generar las ventanas emergentes para cada artículo
+      products.forEach(function (product) {
+        var ventana = document.createElement('div');
+        ventana.classList.add('ventana');
 
-    var titulo = document.createElement('h3');
-    titulo.textContent = product.name;
-    ventana.appendChild(titulo);
+        var titulo = document.createElement('h3');
+        titulo.textContent = product.name;
+        ventana.appendChild(titulo);
 
-    var descripcion = document.createElement('p');
-    descripcion.textContent = product.description;
-    ventana.appendChild(descripcion);
+        var descripcion = document.createElement('p');
+        descripcion.textContent = product.description;
+        ventana.appendChild(descripcion);
 
-    var precio = document.createElement('p');
-    precio.textContent = 'Precio: $' + product.price;
-    ventana.appendChild(precio);
+        var precio = document.createElement('p');
+        precio.textContent = 'Precio: $' + product.price;
+        ventana.appendChild(precio);
 
-    var cantidad = document.createElement('p');
-    cantidad.textContent = 'Cantidad: ' + product.quantity;
-    ventana.appendChild(cantidad);
+        var cantidad = document.createElement('p');
+        cantidad.textContent = 'Cantidad: ' + product.quantity;
+        ventana.appendChild(cantidad);
 
-    var imagen = document.createElement('img');
-    imagen.src = 'data:image/png;base64,' + product.imageData;
-    ventana.appendChild(imagen);
+        var imagen = document.createElement('img');
+        imagen.src = 'data:image/png;base64,' + product.imageData;
+        ventana.appendChild(imagen);
 
-    var eliminarBtn = document.createElement('button');
-    eliminarBtn.textContent = 'Eliminar del carrito';
-    eliminarBtn.addEventListener('click', function() {
-      deletePC(product.id);
-    });
-    ventana.appendChild(eliminarBtn);
+        var eliminarBtn = document.createElement('button');
+        eliminarBtn.textContent = 'Eliminar del carrito';
+        eliminarBtn.addEventListener('click', function() {
+          deletePC(product.id);
+        });
+        ventana.appendChild(eliminarBtn);
 
-    var modificarBtn = document.createElement('button');
-    modificarBtn.textContent = 'Modificar cantidad';
-    modificarBtn.addEventListener('click', function() {
-      var cantidadNueva = prompt('¿Cuántos?');
-      if (cantidadNueva !== null) {
-        UpdateQ(product.id, parseInt(cantidadNueva));
-      }
-    });
-    ventana.appendChild(modificarBtn);
+        var modificarBtn = document.createElement('button');
+        modificarBtn.textContent = 'Modificar cantidad';
+        modificarBtn.addEventListener('click', function() {
+          var cantidadNueva = prompt('¿Cuántos?');
+          if (cantidadNueva !== null) {
+            UpdateQ(product.id, parseInt(cantidadNueva));
+          }
+        });
+        ventana.appendChild(modificarBtn);
 
-    productListContainer.appendChild(ventana);
+        productListContainer.appendChild(ventana);
 
-    // Calcular el total de la suma de precios
-    total += product.price;
-  });
+        // Calcular el total de la suma de precios
+        total += product.price * product.quantity;
+      });
 
-    // Mostrar el total
-    var totalElement = document.createElement('p');
-    totalElement.textContent = 'Total: $' + total;
-    productListContainer.appendChild(totalElement);
+      // Mostrar el total
+      var totalElement = document.createElement('p');
+      totalElement.textContent = 'Total: $' + total;
+      productListContainer.appendChild(totalElement);
 
-    // Agregar el botón "Eliminar carrito"
-    var eliminarCarritoBtn = document.createElement('button');
-    eliminarCarritoBtn.textContent = 'Eliminar carrito';
-    eliminarCarritoBtn.addEventListener('click', function() {
-      var confirmacion = confirm('¿Estás seguro de que deseas eliminar el carrito?');
-      if (confirmacion) {
-        deleteCarrito();
-      }
-    });
-    productListContainer.appendChild(eliminarCarritoBtn);
+      // Agregar el botón "Eliminar carrito"
+      var eliminarCarritoBtn = document.createElement('button');
+      eliminarCarritoBtn.textContent = 'Eliminar carrito';
+      eliminarCarritoBtn.addEventListener('click', function() {
+        var confirmacion = confirm('¿Estás seguro de que deseas eliminar el carrito?');
+        if (confirmacion) {
+          deleteCarrito();
+        }
+      });
+      productListContainer.appendChild(eliminarCarritoBtn);
 
-    // Mostrar el contenedor de resultados
-    var resultsContainer = document.getElementById('carrito-container');
-    resultsContainer.style.display = 'block';
-  }
+      // Mostrar el contenedor de resultados
+      var resultsContainer = document.getElementById('carrito-container');
+      resultsContainer.style.display = 'block';
+    }
 
-  function deletePC(idProduct) {
+    function deletePC(idProduct) {
     var data = {
       id: idProduct,
     };
@@ -358,7 +358,7 @@
     });
   }
 
-  function UpdateQ(idProduct, quantity) {
+    function UpdateQ(idProduct, quantity) {
     console.log(idProduct, quantity);
 
     var data = {
@@ -381,7 +381,7 @@
     });
   }
   
-  function deleteCarrito() {
+    function deleteCarrito() {
       // Realizar la solicitud AJAX al backend
     $.ajax({
       url: "https://t9-af-2020630140.azurewebsites.net/api/RemoveCart?code=HcHL-cPEZNY2o1wS1qy4E6IG3k5geMNF3KHMAi5gLKz6AzFumB3gFA==",
